@@ -1,6 +1,7 @@
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Payload {
+    pub version: u32,
     pub data: Vec<u8>,
     pub timestamp: u64,
     pub public_key: Vec<u8>,
@@ -8,8 +9,9 @@ pub struct Payload {
 }
 
 impl Payload {
-    pub fn new(data: Vec<u8>, timestamp: u64, public_key: Vec<u8>, signature: Vec<u8>) -> Payload {
+    pub fn new(version: u32,data: Vec<u8>, timestamp: u64, public_key: Vec<u8>, signature: Vec<u8>) -> Payload {
         Payload {
+            version,
             data,
             timestamp,
             public_key,
@@ -20,6 +22,10 @@ impl Payload {
     ///
     /// getter
     ///
+    pub fn get_version(&self) -> u32 {
+        self.version
+    }
+
     pub fn get_data(&self) -> &Vec<u8> {
         &self.data
     }
