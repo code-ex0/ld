@@ -3,14 +3,12 @@ use crate::{Block, Payload};
 #[derive(Debug, Clone, PartialEq)]
 pub struct Blockchain{
     pub blocks: Vec<Block>,
-    pub temp_payload: Vec<Payload>,
 }
 
 impl Blockchain {
     pub fn new() -> Blockchain {
         Blockchain {
             blocks: Vec::new(),
-            temp_payload: Vec::new(),
         }
     }
 
