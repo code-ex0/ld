@@ -5,7 +5,7 @@ fn main() {
 
 
     let block = Block::new(0, 0, Vec::new(), "".to_string(), 0);
-    for i in 0..10 {
+    for _i in 0..10 {
         blockchain.add_block(block.clone());
     }
 
@@ -14,7 +14,7 @@ fn main() {
         block.id += 1;
     });
 
-    blockchain.into_iter().for_each(|mut block| {
+    blockchain.into_iter().for_each(|block| {
         println!("{:?}", block);
     });
 }

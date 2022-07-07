@@ -1,4 +1,6 @@
 
+pub type Payloads = Vec<Payload>;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Payload {
     pub version: u32,
