@@ -3,12 +3,13 @@ pub use block::Block;
 
 pub mod payload;
 pub use payload::Payload;
+pub use payload::Payloads;
 
 pub mod blockchain;
 pub use blockchain::Blockchain;
 
 
-pub struct BlockchainIterator<'a> {
+struct BlockchainIterator<'a> {
     pub blockchain: &'a Blockchain,
     pub index: usize,
 }
