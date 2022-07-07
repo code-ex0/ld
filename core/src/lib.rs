@@ -9,7 +9,7 @@ pub mod blockchain;
 pub use blockchain::Blockchain;
 
 
-struct BlockchainIterator<'a> {
+pub struct BlockchainIterator<'a> {
     pub blockchain: &'a Blockchain,
     pub index: usize,
 }

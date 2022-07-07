@@ -1,4 +1,4 @@
-use crate::{Block, Payload};
+use crate::{Block};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Blockchain{
@@ -14,9 +14,5 @@ impl Blockchain {
 
     pub fn add_block(&mut self, block: Block) {
         self.blocks.push(block);
-    }
-
-    pub fn add_payload(&mut self, payload: Payload) {
-        self.temp_payload.push(payload);
     }
 }
