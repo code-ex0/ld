@@ -1,8 +1,8 @@
-use crate::{Block, BlockchainError};
+use crate::{Block, Blocks, BlockchainError}
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Blockchain{
-    pub blocks: Vec<Block>,
+    pub blocks: Blocks,
 }
 
 impl Blockchain {
