@@ -1,13 +1,18 @@
-pub mod block;
+mod block;
 pub use block::Block;
 
-pub mod payload;
+mod payload;
 pub use payload::Payload;
 pub use payload::Payloads;
 
-pub mod blockchain;
+mod blockchain;
 pub use blockchain::Blockchain;
 
+mod blockchain_error;
+pub use blockchain_error::BlockchainError;
+
+mod block_error;
+pub use block_error::BlockError;
 
 pub struct BlockchainIterator<'a> {
     pub blockchain: &'a Blockchain,
