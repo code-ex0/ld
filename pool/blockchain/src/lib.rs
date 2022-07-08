@@ -1,1 +1,2 @@
-pub mod blockchain;
+mod blockchain;
+pub use blockchain::BlockchainPool;

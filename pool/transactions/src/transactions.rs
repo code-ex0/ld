@@ -1,5 +1,5 @@
 use std::sync::{Arc, Mutex};
-use core::{payload::Payloads, payload::Payload};
+use core::{Payloads, Payload};
 
 pub type SyncTransaction = Arc<Mutex<Payloads>>;
 

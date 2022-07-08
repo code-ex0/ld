@@ -1,20 +1,11 @@
 pub use core::{Block, Payload, Blockchain};
+pub use pool_blockchain::BlockchainPool;
 
 fn main() {
-    let mut blockchain = Blockchain::new();
-
-
-    let block = Block::new(0, 0, Vec::new(), "".to_string(), 0);
-    for _i in 0..10 {
-        blockchain.add_block(block.clone());
-    }
-
-    blockchain.into_iter().for_each(|mut block| {
-        println!("{:?}", block);
-        block.id += 1;
-    });
-
-    blockchain.into_iter().for_each(|block| {
-        println!("{:?}", block);
-    });
+    let mut blockchain = BlockchainPool::new();
+    let genesis_block = Block::new(0, 0, vec![], "genesis".to_string(), 0);
+    blockchain.add_block(genesis_block);
+    let block = blockchain.new_block();
+    blockchain.add_block(block);
+    println!("{:?}", blockchain)
 }
