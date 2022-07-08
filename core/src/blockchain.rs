@@ -1,4 +1,4 @@
-use crate::{Block, Blocks, BlockchainError}
+use crate::{Block, Blocks, BlockchainError};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Blockchain{
