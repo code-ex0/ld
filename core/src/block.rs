@@ -1,5 +1,7 @@
 use crate::payload::Payload;
 
+pub type Blocks = Vec<Block>;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Block {
     pub id: u64,

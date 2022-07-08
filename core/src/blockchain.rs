@@ -1,8 +1,8 @@
-use crate::{Block, Payload};
+use crate::{Block, Blocks, Payload};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Blockchain{
-    pub blocks: Vec<Block>,
+    pub blocks: Blocks,
 }
 
 impl Blockchain {

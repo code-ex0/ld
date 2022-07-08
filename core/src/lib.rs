@@ -1,5 +1,6 @@
 pub mod block;
 pub use block::Block;
+pub use block::Blocks;
 
 pub mod payload;
 pub use payload::Payload;
