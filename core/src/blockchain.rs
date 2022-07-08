@@ -1,4 +1,4 @@
-use crate::{Block, Blocks, Payload};
+use crate::{Block, Blocks, BlockchainError}
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Blockchain{
@@ -16,7 +16,11 @@ impl Blockchain {
         self.blocks.push(block);
     }
 
-    pub fn add_payload(&mut self, payload: Payload) {
-        self.temp_payload.push(payload);
+    pub fn last_block(&self) -> Result<&Block, BlockchainError> {
+        if self.blocks.is_empty() {
+            Err(BlockchainError::EmptyBlockchain)?;
+        }
+        Ok(self.blocks.last().unwrap())
     }
+
 }

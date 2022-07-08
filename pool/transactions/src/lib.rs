@@ -1,2 +1,2 @@
-pub mod transactions;
+mod transactions;
 pub use transactions::TransactionPool;
