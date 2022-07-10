@@ -9,6 +9,7 @@ members = [
     "core",
     "pool/transactions",
     "pool/blockchain",
+    "pool/miner",
 ]
 
 [dependencies]

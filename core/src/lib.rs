@@ -15,6 +15,9 @@ pub use blockchain_error::BlockchainError;
 mod block_error;
 pub use block_error::BlockError;
 
+mod proof_of_work;
+pub use proof_of_work::ProofOfWork;
+
 pub struct BlockchainIterator<'a> {
     pub blockchain: &'a Blockchain,
     pub index: usize,

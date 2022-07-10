@@ -24,8 +24,7 @@ impl BlockchainPool {
         return if let Ok(last_block) = blockchain.last_block() {
             Block::new(last_block.id + 1, 0, vec![], last_block.hash.clone(), 0)
         } else {
-            println!("Error: Blockchain is empty");
-            Block::new(0, 0, vec![], "".to_string(), 0)
+            Block::new(0, 0, vec![], "genesis".to_string(), 0)
         }
     }
 }
