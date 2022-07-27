@@ -1,11 +1,25 @@
-pub use core::{Block, Payload, Blockchain};
+use config::Config;
+use context::Context;
+pub use core::{Block, Transaction, Blockchain};
 pub use pool_blockchain::BlockchainPool;
+use pool_sync::run_in_parallel;
+use pool_miner::Miner;
+use pool_transactions::TransactionPool;
+use pool_api::Api;
+
 
 fn main() {
-    let mut blockchain = BlockchainPool::new();
-    let genesis_block = Block::new(0, 0, vec![], "genesis".to_string(), 0);
-    blockchain.add_block(genesis_block);
-    let block = blockchain.new_block();
-    blockchain.add_block(block);
-    println!("{:?}", blockchain)
+    let context = Context {
+        config: Config {
+            port: 8000
+        },
+        transactions: TransactionPool::new(),
+        blockchain: BlockchainPool::new(),
+    };
+
+
+    let pool_miner = Miner::new(&context, "Louis Sasse".to_string());
+    let pool_api = Api::new(&context);
+
+    run_in_parallel(vec![&pool_miner, &pool_api]);
 }

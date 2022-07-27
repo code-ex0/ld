@@ -7,11 +7,21 @@ edition = "2021"
 [workspace]
 members = [
     "core",
+    "config",
     "pool/transactions",
     "pool/blockchain",
+    "pool/miner",
+    "pool/sync",
+    "pool/api",
+    "pool/context",
 ]
 
 [dependencies]
-core = {path = "core"}
-pool-blockchain = {path = "pool/blockchain"}
-pool-transactions = {path = "pool/transactions"}
+core = { path = "core" }
+config = { path = "config" }
+pool-sync = { path = "pool/sync" }
+context = { path = "pool/context" }
+pool-miner = { path = "pool/miner" }
+pool-blockchain = { path = "pool/blockchain" }
+pool-transactions = { path = "pool/transactions" }
+pool-api = { path = "pool/api" }
