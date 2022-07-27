@@ -46,6 +46,6 @@ impl ProofOfWork for Block {
     }
 
     fn validate(&self) -> bool {
-        todo!()
+        self.hash == self.hash()
     }
 }
