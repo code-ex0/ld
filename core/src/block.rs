@@ -1,4 +1,4 @@
-use crate::payload::Payload;
+use crate::{Transaction, Transactions};
 
 pub type Blocks = Vec<Block>;
 
@@ -6,18 +6,18 @@ pub type Blocks = Vec<Block>;
 pub struct Block {
     pub id: u64,
     pub timestamp: u64,
-    pub payloads: Vec<Payload>,
+    pub transactions: Transactions,
     pub previous_hash: String,
     pub hash: String,
     pub nonce: u64,
 }
 
 impl Block {
-    pub fn new(id: u64, timestamp: u64, payloads: Vec<Payload>, previous_hash: String, nonce: u64) -> Block {
+    pub fn new(id: u64, timestamp: u64, transactions: Transactions, previous_hash: String, nonce: u64) -> Block {
         Block {
             id,
             timestamp,
-            payloads,
+            transactions,
             previous_hash,
             hash: String::new(),
             nonce,
@@ -35,8 +35,8 @@ impl Block {
         self.timestamp
     }
 
-    pub fn get_payloads(&self) -> &Vec<Payload> {
-        &self.payloads
+    pub fn get_payloads(&self) -> &Transactions {
+        &self.transactions
     }
 
     pub fn get_previous_hash(&self) -> &String {
