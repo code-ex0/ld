@@ -2,7 +2,28 @@
 name = "ld"
 version = "0.1.0"
 edition = "2021"
-
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[workspace]
+members = [
+    "core",
+    "config",
+    "pool/transactions",
+    "pool/blockchain",
+    "pool/miner",
+    "pool/sync",
+    "pool/api",
+    "pool/context",
+    "utils",
+]
+
 [dependencies]
+core = { path = "core" }
+config = { path = "config" }
+pool-sync = { path = "pool/sync" }
+context = { path = "pool/context" }
+pool-miner = { path = "pool/miner" }
+pool-blockchain = { path = "pool/blockchain" }
+pool-transactions = { path = "pool/transactions" }
+pool-api = { path = "pool/api" }
+utils = { path = "utils" }

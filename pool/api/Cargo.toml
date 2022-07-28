@@ -1,0 +1,15 @@
+[package]
+name = "pool-api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+core = { path = "../../core" }
+pool-sync = { path = "../sync" }
+context = { path = "../context" }
+pool-blockchain = { path = "../blockchain" }
+pool-transactions = { path = "../transactions" }
+actix-web = "4.1.0"
+anyhow = "1.0.58"
