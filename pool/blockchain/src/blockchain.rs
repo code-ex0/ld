@@ -2,6 +2,7 @@ use std::sync::{Arc, Mutex};
 use core::{Blockchain, Block};
 use core::Transactions;
 use core::ProofOfWork;
+use core::BlockchainError;
 
 pub type SyncBlockchain = Arc<Mutex<Blockchain>>;
 
@@ -43,5 +44,15 @@ impl BlockchainPool {
         }
 
         return false;
+    }
+
+    pub fn get_all_blocks(&self) -> Vec<Block> {
+        let blockchain = self.blockchain.lock().unwrap();
+        return blockchain.blocks.clone();
+    }
+
+    pub fn get_block(&self, id: u64) -> Result<Block, BlockchainError> {
+        let blockchain = self.blockchain.lock().unwrap();
+        blockchain.get_block(id)
     }
 }

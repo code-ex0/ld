@@ -4,6 +4,7 @@ use crate::BlockError;
 
 pub enum BlockchainError {
     EmptyBlockchain,
+    BlockNotFound,
     InvalidBlock(BlockError),
 }
 
@@ -12,6 +13,7 @@ impl std::error::Error for BlockchainError {
         match self {
             BlockchainError::EmptyBlockchain => "Blockchain is empty",
             BlockchainError::InvalidBlock(block_error) => block_error.description(),
+            BlockchainError::BlockNotFound => "Block not found",
         }
     }
 }
@@ -30,6 +32,9 @@ impl Display for BlockchainError {
             }
             BlockchainError::InvalidBlock(block_error) => {
                 write!(f, "{}", block_error.description())
+            }
+            BlockchainError::BlockNotFound => {
+                write!(f, "Block not found")
             }
         }
     }

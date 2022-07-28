@@ -1,8 +1,9 @@
 use crate::TransactionData;
+use serde::{Deserialize, Serialize};
 
 pub type Transactions = Vec<Transaction>;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Transaction {
     pub version: u32,
     pub transaction_data: TransactionData,
