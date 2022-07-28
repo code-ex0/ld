@@ -11,3 +11,5 @@ pool-sync = { path = "../sync" }
 context = { path = "../context" }
 pool-blockchain = { path = "../blockchain" }
 pool-transactions = { path = "../transactions" }
+actix-web = "4.1.0"
+anyhow = "1.0.58"

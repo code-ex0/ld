@@ -8,3 +8,4 @@ edition = "2021"
 [dependencies]
 pool-transactions = {path = "../transactions"}
 pool-blockchain = {path = "../blockchain"}
+anyhow = "1.0.58"
