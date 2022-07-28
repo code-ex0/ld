@@ -1,8 +1,9 @@
 use crate::{Transaction, Transactions};
+use serde::{Deserialize, Serialize};
 
 pub type Blocks = Vec<Block>;
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Block {
     pub id: u64,
     pub timestamp: u64,

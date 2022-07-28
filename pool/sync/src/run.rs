@@ -1,7 +1,8 @@
 use std::thread;
+use anyhow::Result;
 
 pub trait Run : Sync {
-    fn run(&self) -> Result<(), String>;
+    fn run(&self) -> Result<()>;
 }
 
 pub fn run_in_parallel(runnable: Vec<&dyn Run>) {

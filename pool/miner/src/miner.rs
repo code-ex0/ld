@@ -4,6 +4,7 @@ use pool_transactions::TransactionPool;
 use pool_sync::Run;
 use core::{Block, Transaction, Transactions, TransactionData};
 use core::ProofOfWork;
+use anyhow::Result;
 
 pub struct Miner {
     pub address: String,
@@ -21,7 +22,7 @@ impl Miner {
         }
     }
 
-    pub fn start(&self) -> Result<(), String> {
+    pub fn start(&self) -> Result<()> {
         println!("Miner is mining...");
         loop {
             std::thread::sleep(std::time::Duration::from_secs(1));
@@ -67,7 +68,7 @@ impl Miner {
 }
 
 impl Run for Miner {
-    fn run(&self) -> Result<(), String> {
+    fn run(&self) -> Result<()> {
         self.start()
     }
 }

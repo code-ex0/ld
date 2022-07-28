@@ -21,6 +21,10 @@ pub use proof_of_work::ProofOfWork;
 mod transaction_data;
 pub use transaction_data::TransactionData;
 
+mod transaction_error;
+pub use transaction_error::TransactionError;
+
+
 pub struct BlockchainIterator<'a> {
     pub blockchain: &'a Blockchain,
     pub index: usize,
