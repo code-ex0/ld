@@ -6,6 +6,7 @@ use pool_sync::Run;
 use pool_transactions::TransactionPool;
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use anyhow::Result;
+use crate::transaction::TransactionPost;
 
 pub struct ApiState {
     pub blockchain: BlockchainPool,
@@ -64,6 +65,7 @@ async fn server_start(port: u16, blockchain: BlockchainPool, transactions: Trans
             .service(get_block)
             .service(get_transactions)
             .service(get_transaction)
+            .service(post_transaction)
     }).bind(url)
         .unwrap()
         .run()
@@ -109,4 +111,12 @@ async fn get_transaction(state: web::Data<ApiState>, id: web::Path<u64>) -> impl
             HttpResponse::BadRequest().json(err.description())
         }
     }
+}
+
+#[actix_web::post("/transaction")]
+async fn post_transaction(state: web::Data<ApiState>, info: web::Json<TransactionPost>) -> impl Responder {
+    let transactions = &state.transactions;
+    let transaction = info.into_transaction();
+    transactions.add_transaction(transaction.clone());
+    HttpResponse::Ok().json(transaction)
 }

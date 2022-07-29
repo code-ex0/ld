@@ -13,3 +13,5 @@ pool-blockchain = { path = "../blockchain" }
 pool-transactions = { path = "../transactions" }
 actix-web = "4.1.0"
 anyhow = "1.0.58"
+serde = "1.0.137"
+serde_json = "1.0.81"
