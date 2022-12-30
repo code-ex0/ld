@@ -1,4 +1,3 @@
-use std::error::Error;
 use context::Context;
 use pool_blockchain::BlockchainPool;
 use pool_sync::Run;
@@ -14,6 +13,7 @@ pub struct ApiState {
 
 pub struct Api {
     port: u16,
+    url: String,
     blockchain: BlockchainPool,
     transactions: TransactionPool,
 }
@@ -22,6 +22,7 @@ impl Api {
     pub fn new(context: &Context) -> Api {
         Api {
             port: context.config.port,
+            url: context.config.url.clone(),
             blockchain: context.blockchain.clone(),
             transactions: context.transactions.clone(),
         }
@@ -32,7 +33,7 @@ impl Api {
         let blockchain = self.blockchain.clone();
         let transactions = self.transactions.clone();
 
-        server_start(self.port, blockchain, transactions)
+        server_start(self.port, self.url.clone(), blockchain, transactions)
     }
 
     pub fn print_blockchain(&self) {
@@ -49,9 +50,9 @@ impl Run for Api {
 }
 
 #[actix_web::main]
-async fn server_start(port: u16, blockchain: BlockchainPool, transactions: TransactionPool) -> Result<()> {
-    println!("Api is running...");
-    let url = format!("0.0.0.0:{}", port);
+async fn server_start(port: u16, url: String, blockchain: BlockchainPool, transactions: TransactionPool) -> Result<()> {
+    let url = format!("{}:{}", url, port);
+    println!("Api is running... \n╚═══ on the url: http://{}", url);
     let api_state = web::Data::new(ApiState {
         blockchain,
         transactions,
@@ -107,7 +108,7 @@ async fn get_block(state: web::Data<ApiState>, id: web::Path<u64>) -> impl Respo
             HttpResponse::Ok().json(block)
         }
         Err(err) => {
-            HttpResponse::BadRequest().json(err.description())
+            HttpResponse::BadRequest().json(err.to_string())
         }
     }
 }
@@ -127,7 +128,7 @@ async fn get_transaction(state: web::Data<ApiState>, id: web::Path<u64>) -> impl
             HttpResponse::Ok().json(transaction)
         }
         Err(err) => {
-            HttpResponse::BadRequest().json(err.description())
+            HttpResponse::BadRequest().json(err.to_string())
         }
     }
 }
