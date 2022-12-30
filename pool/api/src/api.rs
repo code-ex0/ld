@@ -72,6 +72,16 @@ async fn server_start(port: u16, blockchain: BlockchainPool, transactions: Trans
     Ok(())
 }
 
+pub fn extract_query(s: &str) -> HashMap<&str, &str> {
+    let mut params = std::collections::HashMap::new();
+    for param in s.split("&") {
+        if let Some((key, value)) = param.split_once("=") {
+            params.insert(key, value);
+        }
+    }
+    params
+}
+
 #[actix_web::get("/blocks")]
 async fn get_blocks(state: web::Data<ApiState>) -> impl Responder {
     let blockchain = &state.blockchain;
