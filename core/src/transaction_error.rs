@@ -1,4 +1,3 @@
-use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
 
 pub enum TransactionError {
@@ -29,7 +28,7 @@ impl std::error::Error for TransactionError {
 
 impl Debug for TransactionError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.description())
+        write!(f, "{}", format!("{}", self))
     }
 }
 

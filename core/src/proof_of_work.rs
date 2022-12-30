@@ -17,7 +17,7 @@ impl ProofOfWork for Block {
                 self.nonce = block.nonce;
             }
             Err(e) => {
-                println!("{:?}", e);
+                println!("{}", e);
             }
         }
     }
