@@ -1,11 +1,11 @@
 use std::error::Error;
-use std::os::linux::raw::stat;
 use context::Context;
 use pool_blockchain::BlockchainPool;
 use pool_sync::Run;
 use pool_transactions::TransactionPool;
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{web, App, HttpResponse, HttpServer, Responder, HttpRequest};
 use anyhow::Result;
+use crate::transaction::TransactionPost;
 
 pub struct ApiState {
     pub blockchain: BlockchainPool,
@@ -51,7 +51,7 @@ impl Run for Api {
 #[actix_web::main]
 async fn server_start(port: u16, blockchain: BlockchainPool, transactions: TransactionPool) -> Result<()> {
     println!("Api is running...");
-    let url = format!("localhost:{}", port);
+    let url = format!("0.0.0.0:{}", port);
     let api_state = web::Data::new(ApiState {
         blockchain,
         transactions,
@@ -64,6 +64,7 @@ async fn server_start(port: u16, blockchain: BlockchainPool, transactions: Trans
             .service(get_block)
             .service(get_transactions)
             .service(get_transaction)
+            .service(post_transaction)
     }).bind(url)
         .unwrap()
         .run()
@@ -71,10 +72,30 @@ async fn server_start(port: u16, blockchain: BlockchainPool, transactions: Trans
     Ok(())
 }
 
+pub fn extract_query(s: &str) -> std::collections::HashMap<&str, &str> {
+    let mut params = std::collections::HashMap::new();
+    for param in s.split("&") {
+        if let Some((key, value)) = param.split_once("=") {
+            params.insert(key, value);
+        }
+    }
+    params
+}
+
 #[actix_web::get("/blocks")]
-async fn get_blocks(state: web::Data<ApiState>) -> impl Responder {
+async fn get_blocks(state: web::Data<ApiState>, req: HttpRequest) -> impl Responder {
+    let params = extract_query(req.query_string());
+    let mut limit = match params.get("limit"){
+        Some(limit) => limit.parse::<usize>().unwrap_or(10),
+        None => 10,
+    };
+
+    // todo: add pagination
+
+    if limit >= 1000 {limit = 1000};
+
     let blockchain = &state.blockchain;
-    let blocks = blockchain.get_all_blocks();
+    let blocks = blockchain.get_blocks(limit);
     HttpResponse::Ok().json(blocks)
 }
 
@@ -109,4 +130,12 @@ async fn get_transaction(state: web::Data<ApiState>, id: web::Path<u64>) -> impl
             HttpResponse::BadRequest().json(err.description())
         }
     }
+}
+
+#[actix_web::post("/transaction")]
+async fn post_transaction(state: web::Data<ApiState>, info: web::Json<TransactionPost>) -> impl Responder {
+    let transactions = &state.transactions;
+    let transaction = info.into_transaction();
+    transactions.add_transaction(transaction.clone());
+    HttpResponse::Ok().json(transaction)
 }

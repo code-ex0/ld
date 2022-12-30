@@ -1,4 +1,4 @@
-use crate::{Block, BlockchainError, BlockError};
+use crate::{Block, BlockError};
 use crypto::digest::Digest;
 use crypto::sha3::Sha3;
 
