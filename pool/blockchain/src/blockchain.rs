@@ -53,9 +53,6 @@ impl BlockchainPool {
 
     pub fn get_blocks(&self, limit: usize) -> Vec<Block> {
         let blockchain = self.blockchain.lock().unwrap();
-        if blockchain.blocks.len() < limit {
-            return blockchain.blocks.clone();
-        }
         return blockchain.blocks.iter().rev().take(limit).cloned().collect();
     }
 
