@@ -3,7 +3,7 @@ use context::Context;
 use pool_blockchain::BlockchainPool;
 use pool_sync::Run;
 use pool_transactions::TransactionPool;
-use actix_web::{web, App, HttpResponse, HttpServer, Responder};
+use actix_web::{web, App, HttpResponse, HttpServer, Responder, HttpRequest};
 use anyhow::Result;
 use crate::transaction::TransactionPost;
 
@@ -83,9 +83,19 @@ pub fn extract_query(s: &str) -> HashMap<&str, &str> {
 }
 
 #[actix_web::get("/blocks")]
-async fn get_blocks(state: web::Data<ApiState>) -> impl Responder {
+async fn get_blocks(state: web::Data<ApiState>, req: HttpRequest) -> impl Responder {
+    let params = extract_query(req.query_string());
+    let mut limit = match params.get("limit"){
+        Some(limit) => limit.parse::<usize>().unwrap_or(10),
+        None => 10,
+    };
+
+    // todo: add pagination
+
+    if limit >= 1000 {limit = 1000};
+
     let blockchain = &state.blockchain;
-    let blocks = blockchain.get_all_blocks();
+    let blocks = blockchain.get_blocks(limit);
     HttpResponse::Ok().json(blocks)
 }
 
