@@ -1,5 +1,4 @@
 use std::error::Error;
-use std::os::linux::raw::stat;
 use context::Context;
 use pool_blockchain::BlockchainPool;
 use pool_sync::Run;
@@ -52,7 +51,7 @@ impl Run for Api {
 #[actix_web::main]
 async fn server_start(port: u16, blockchain: BlockchainPool, transactions: TransactionPool) -> Result<()> {
     println!("Api is running...");
-    let url = format!("localhost:{}", port);
+    let url = format!("0.0.0.0:{}", port);
     let api_state = web::Data::new(ApiState {
         blockchain,
         transactions,
