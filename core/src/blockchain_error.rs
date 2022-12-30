@@ -1,4 +1,3 @@
-use std::error::Error;
 use std::fmt::{Debug, Display, Formatter};
 use crate::BlockError;
 
@@ -12,7 +11,7 @@ impl std::error::Error for BlockchainError {
     fn description(&self) -> &str {
         match self {
             BlockchainError::EmptyBlockchain => "Blockchain is empty",
-            BlockchainError::InvalidBlock(block_error) => block_error.description(),
+            BlockchainError::InvalidBlock(_) => "Invalid block",
             BlockchainError::BlockNotFound => "Block not found",
         }
     }
@@ -20,7 +19,7 @@ impl std::error::Error for BlockchainError {
 
 impl Debug for BlockchainError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.description())
+        write!(f, "{}", format!("{}", self))
     }
 }
 
@@ -31,7 +30,7 @@ impl Display for BlockchainError {
                 write!(f, "Blockchain is empty")
             }
             BlockchainError::InvalidBlock(block_error) => {
-                write!(f, "{}", block_error.description())
+                write!(f, "{}", format!("{}", block_error))
             }
             BlockchainError::BlockNotFound => {
                 write!(f, "Block not found")

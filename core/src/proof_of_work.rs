@@ -1,4 +1,4 @@
-use crate::{Block, BlockchainError, BlockError};
+use crate::{Block, BlockError};
 use crypto::digest::Digest;
 use crypto::sha3::Sha3;
 
@@ -17,7 +17,7 @@ impl ProofOfWork for Block {
                 self.nonce = block.nonce;
             }
             Err(e) => {
-                println!("{:?}", e);
+                println!("{}", e);
             }
         }
     }

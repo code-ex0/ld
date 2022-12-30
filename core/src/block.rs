@@ -1,4 +1,4 @@
-use crate::{Transaction, Transactions};
+use crate::{Transactions};
 use serde::{Deserialize, Serialize};
 
 pub type Blocks = Vec<Block>;

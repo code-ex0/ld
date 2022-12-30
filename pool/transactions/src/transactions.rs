@@ -37,7 +37,7 @@ impl TransactionPool {
         if transactions.is_empty() {
             return Err(TransactionError::EmptyTransactionPool)?;
         }
-        match transactions.iter().enumerate().find(|(current_id, transaction)| current_id == id.try_into().as_ref().unwrap()) {
+        match transactions.iter().enumerate().find(|(current_id, _transaction)| current_id == id.try_into().as_ref().unwrap()) {
             Some((_, transaction)) => Ok(transaction.clone()),
             None => Err(TransactionError::TransactionNotFound)?,
         }

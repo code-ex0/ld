@@ -14,7 +14,8 @@ fn main() {
 
     let context = Context {
         config: Config {
-            port: 8000
+            port: std::env::var("PORT").unwrap_or("8000".to_string()).parse().expect("Invalid port"),
+            url: std::env::var("URL").unwrap_or("localhost".to_string()),
         },
         transactions: TransactionPool::new(),
         blockchain: BlockchainPool::new(),

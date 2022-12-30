@@ -25,7 +25,7 @@ impl Miner {
     pub fn start(&self) -> Result<()> {
         println!("Miner is mining...");
         loop {
-            std::thread::sleep(std::time::Duration::from_secs(1));
+            std::thread::sleep(std::time::Duration::from_secs(10));
             println!("Miner is mining...");
             match self.blockchain.is_valid() {
                 true => {
